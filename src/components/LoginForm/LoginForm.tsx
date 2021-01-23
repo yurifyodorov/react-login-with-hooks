@@ -3,12 +3,14 @@ import {
   Panel,
   Form,
   Button,
-  ButtonToolbar
+  ButtonToolbar,
+  Input
 } from 'rsuite';
 
 import InputField from '../InputField/InputField';
 import TextField from '@material-ui/core/TextField';
 import './LoginForm.scss';
+import { stringify } from 'querystring';
 
 //state type
 
@@ -110,21 +112,30 @@ const LoginForm = () => {
     }
   };
 
-  const handleUsernameChange: React.ChangeEventHandler<HTMLInputElement> =
-    (event) => {
-      dispatch({
-        type: 'setUsername',
-        payload: event.target.value
-      });
-    };
+  // const handleUsernameChange: React.ChangeEventHandler<HTMLInputElement> =
+  //   (event) => {
+  //     dispatch({
+  //       type: 'setUsername',
+  //       payload: event.target.value
+  //     });
+  //   };
 
-  const handlePasswordChange: React.ChangeEventHandler<HTMLInputElement> =
-    (event) => {
-      dispatch({
-        type: 'setPassword',
-        payload: event.target.value
-      });
-    }
+  const handleUsernameChange = (value: string) => {
+    dispatch({ type: 'setUsername', payload: value });
+  }
+
+  const handlePasswordChange = (value: string) => {
+    dispatch({ type: 'setPassword', payload: value });
+  }
+
+  // const handlePasswordChange: React.ChangeEventHandler<HTMLInputElement> =
+  //   (event) => {
+  //     dispatch({
+  //       type: 'setPassword',
+  //       payload: event.target.value
+  //     });
+  //   }
+
   return (
     <Panel 
       header="Panel title" 
@@ -137,7 +148,7 @@ const LoginForm = () => {
           <InputField />
 
 
-          <TextField
+          <Input
             error={state.isError}
             id="username"
             type="email"
@@ -146,7 +157,8 @@ const LoginForm = () => {
             onChange={handleUsernameChange}
             onKeyPress={handleKeyPress}
           />
-          <TextField
+          
+          <Input
             error={state.isError}
             id="password"
             type="password"
