@@ -1,6 +1,19 @@
-.login-form {
+/* RSCSS Methodology
+see more: https://rscss.io/index.html */
+
+@import '../../design-tokens/project-сolors.scss';
+
+
+.auth-panel {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
+
+  .rs-panel-heading {
+		font-size: 24px;
+    color: $blue-500;
+    font-weight: bold;
+  }
 }
