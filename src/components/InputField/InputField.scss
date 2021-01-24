@@ -1,3 +1,35 @@
+@import "../../assets/styles/project-сolors.scss";
+
 .input-field {
-  background: green;
+  position: relative;
+  line-height: 34px;
+  margin-bottom: 40px !important;
+
+  > .label {
+    position: absolute;
+    left: 50px;
+    font-size: 16px;
+    user-select: none;
+    transition: all 0.25s ease;
+    transform: translateZ(0);
+    color: $gray-600;
+    z-index: 99;
+  }
+
+  &.-active {
+    > .label {
+      left: 5px;
+      transform: translateY(-30px) scale(0.83);
+      transform-origin: left;
+    }
+  }
+
+  > .input {
+    // Input icon background
+    > .rs-input-group-addon {
+      display: flex;
+      justify-content: center;
+      width: 40px;
+    }
+  }
 }

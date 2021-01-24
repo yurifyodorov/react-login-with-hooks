@@ -1,28 +1,30 @@
 import React, { useReducer, useEffect } from 'react';
-import { 
+import {
   Panel,
   Form,
   Button,
   ButtonToolbar,
-  Input
+  Input,
 } from 'rsuite';
 
+import Logo from '../Logo/Logo';
 import InputField from '../InputField/InputField';
-import TextField from '@material-ui/core/TextField';
+
+
 import './LoginForm.scss';
-import { stringify } from 'querystring';
+
 
 //state type
 
 type State = {
   username: string
-  password:  string
+  password: string
   isButtonDisabled: boolean
   helperText: string
   isError: boolean
 };
 
-const initialState:State = {
+const initialState: State = {
   username: '',
   password: '',
   isButtonDisabled: true,
@@ -39,34 +41,34 @@ type Action = { type: 'setUsername', payload: string }
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case 'setUsername': 
+    case 'setUsername':
       return {
         ...state,
         username: action.payload
       };
-    case 'setPassword': 
+    case 'setPassword':
       return {
         ...state,
         password: action.payload
       };
-    case 'setIsButtonDisabled': 
+    case 'setIsButtonDisabled':
       return {
         ...state,
         isButtonDisabled: action.payload
       };
-    case 'loginSuccess': 
+    case 'loginSuccess':
       return {
         ...state,
         helperText: action.payload,
         isError: false
       };
-    case 'loginFailed': 
+    case 'loginFailed':
       return {
         ...state,
         helperText: action.payload,
         isError: true
       };
-    case 'setIsError': 
+    case 'setIsError':
       return {
         ...state,
         isError: action.payload
@@ -75,15 +77,29 @@ const reducer = (state: State, action: Action): State => {
 }
 
 const LoginForm = () => {
-  // const classes = useStyles();
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  const inputs = [
+    {
+      label: 'Email',
+      icon: 'avatar',
+      type: 'email',
+      tooltip: 'введите email'
+    },
+    {
+      label: 'Password',
+      icon: 'lock',
+      type: 'password',
+      tooltip: 'введите пароль'
+    }
+  ];
 
   useEffect(() => {
     if (state.username.trim() && state.password.trim()) {
-     dispatch({
-       type: 'setIsButtonDisabled',
-       payload: false
-     });
+      dispatch({
+        type: 'setIsButtonDisabled',
+        payload: false
+      });
     } else {
       dispatch({
         type: 'setIsButtonDisabled',
@@ -112,14 +128,6 @@ const LoginForm = () => {
     }
   };
 
-  // const handleUsernameChange: React.ChangeEventHandler<HTMLInputElement> =
-  //   (event) => {
-  //     dispatch({
-  //       type: 'setUsername',
-  //       payload: event.target.value
-  //     });
-  //   };
-
   const handleUsernameChange = (value: string) => {
     dispatch({ type: 'setUsername', payload: value });
   }
@@ -128,26 +136,42 @@ const LoginForm = () => {
     dispatch({ type: 'setPassword', payload: value });
   }
 
-  // const handlePasswordChange: React.ChangeEventHandler<HTMLInputElement> =
-  //   (event) => {
-  //     dispatch({
-  //       type: 'setPassword',
-  //       payload: event.target.value
-  //     });
-  //   }
-
   return (
-    <Panel 
-      header="Panel title" 
-      style={{ width: 288, height: 380 }}
-      className='auth-panel'
-      shaded
-    >
-      <Form className='form'>
+    <div className='login-form-wrapper'>
+      <Panel
+        header={<Logo />}
+        style={{ width: 288, height: 380 }}
+        className='login-form'
+        shaded
+      >
+        <Form className='form' >
 
-          <InputField />
+          {inputs.map((props, index) => (
+            <InputField
+              error={state.isError}
+              // onChange here
+              // onKeyPress here
+              key={index}
+              index={index}
+              {...props}
+            />
+          ))}
+
+          <ButtonToolbar className='toolbar'>
+            <Button
+              className='button'
+              appearance="primary"
+              type="submit"
+              onClick={handleLogin}
+              disabled={state.isButtonDisabled}
+            >
+              Войти
+            </Button>
+          </ButtonToolbar>
 
 
+          {/* FIXME: move the onChange and onKeyPress methods to <InputField /> */}
+          {/* then remove those <Input /> */}
           <Input
             error={state.isError}
             id="username"
@@ -156,33 +180,23 @@ const LoginForm = () => {
             placeholder="Username"
             onChange={handleUsernameChange}
             onKeyPress={handleKeyPress}
+            style={{ height: 15, fontSize: 10, marginTop: 10 }}
           />
-          
+
           <Input
             error={state.isError}
             id="password"
             type="password"
             label="Password"
             placeholder="Password"
-            helperText={state.helperText}
             onChange={handlePasswordChange}
             onKeyPress={handleKeyPress}
+            style={{ height: 15, fontSize: 10 }}
           />
+        </Form>
 
-          <ButtonToolbar className='toolbar'>
-            <Button 
-              className='button'
-              appearance="primary" 
-              type="submit"
-              onClick={handleLogin}
-              disabled={state.isButtonDisabled}
-            >
-              Войти
-            </Button>
-          </ButtonToolbar>
-      </Form>
-        
-    </Panel>
+      </Panel>
+    </div>
   );
 }
 

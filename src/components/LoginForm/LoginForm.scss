@@ -1,19 +1,34 @@
 /* RSCSS Methodology
 see more: https://rscss.io/index.html */
 
-@import '../../design-tokens/project-сolors.scss';
+@import '../../assets/styles/project-сolors.scss';
 
 
-.auth-panel {
+.login-form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: $bg-page;
+}
+
+.login-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  background: $white;
 
   .rs-panel-heading {
 		font-size: 24px;
     color: $blue-500;
-    font-weight: bold;
+    margin-bottom: 10px;
   }
+
+  .toolbar > .button {
+    width: 100%;
+  }
+
+
 }

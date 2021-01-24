@@ -1,5 +1,5 @@
 // The colors of the current project are inherited from the color palette
-@import '../../design-tokens/tw-colors-pallete';
+@import './tw-colors-pallete.scss';
 
 
 // RSuite color scheme: https://rsuitejs.com/design/default/
@@ -34,3 +34,6 @@ $status-info: $blue-500; // tilwind
 $status-succes: $green-700; // tilwind
 $status-warning: #FFC008;
 $status-error: #EB5757;
+
+// Backgrounds
+$bg-page: $lightBlue-100;

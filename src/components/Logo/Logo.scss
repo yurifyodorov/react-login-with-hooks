@@ -1,0 +1,13 @@
+.my-logo {
+  display: flex;
+  width: 246px; // FIXME: set variables
+
+  > .image {
+    width: 48px;
+  }
+
+  > .title {
+    margin-left: 10px;
+    font-size: 24px;
+  }
+}
